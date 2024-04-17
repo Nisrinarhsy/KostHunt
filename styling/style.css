@@ -4,11 +4,21 @@ body, html{
     box-sizing: border-box;
     height: 100%;
     font-family: 'Arial', 'Helvetica', sans-serif;
-    background-color: lightblue;
+    /* background-color: lightblue; */
 }
 .header {
-    z-index: 0;
+    z-index: 1;
+    width: 100%;
+    top: 0;
     display: flex;
+    position: fixed;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+#bottom-focus:focus ~ .header {
+    transform: translateY(-100%);
+}
+#top-focus:focus ~ .header {
+    transform: translateY(0);
 }
 .header .logo {
     width: 15%;
@@ -30,15 +40,15 @@ body, html{
     text-align: center;
     padding: 14px 20px;
     text-decoration: none;
-    width: 10%;
+    width: 12%;
 }     
 .navbar a:hover {
     background-color: #ddd;
     color: black;
 }
 .footer {
-    background-color: #24147a; /* Background color of your choice */
-    color: white; /* Text color */
+    background-color: #24147a;
+    color: white;
     padding: 20px;
     text-align: left;
     position: relative;
@@ -73,9 +83,8 @@ body, html{
     justify-content: start;
     flex-direction: column;
     text-align: center;
-    padding-right: 5%;
-    padding-left: 5%;
-    margin-top: 50px;
+    padding: 50px 5%;
+    margin-top: 30px;
 }
 .btn {
     display: inline-block;
@@ -92,15 +101,21 @@ body, html{
     background-color: #0056b3;
 }
 
+
 /* home style */
 .homecontent {
     margin-top: 70px;
 }
+
+
 /* houselist style */
 .searchbar {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
     width: 25%;
     margin-left: 40px;
+    padding: 4px;
+    border-radius: 5px;
+    border: solid 0.5px #555;
 }
 .item-list {
     margin-left: 30px;
@@ -110,12 +125,16 @@ body, html{
 }
 .item {
     width: 245px;
-    height: 220px;
+    height: auto;
     padding: 10px;
     border-radius: 7px; 
     display: flex;
     flex-direction: column;
-    text-align: left;   
+    text-align: left;
+    transition: box-shadow 0.3s ease;
+}
+.item:hover {
+    box-shadow: 0px 1px 7px rgba(0, 0, 0, 0.1);
 }
 .item a {
     text-decoration: none;
@@ -136,11 +155,12 @@ body, html{
 .item-actions button {
     height: 30px;
     width: 30px;
-    margin-left: 10px;
+    margin-left: 2px;
     text-decoration: none;
     border-radius: 10px;
     background-color: white;
-    border: solid 0.5px #555;
+    /* border: solid 0.5px #555; */
+    border: none;
     font-size: medium;
 }
 .item-actions button:hover {
@@ -152,6 +172,7 @@ body, html{
 .short-info h3, .short-info p {
     margin: 0;
 }
+
 
 /* individual room information style */
 .roominfo {
@@ -184,10 +205,70 @@ body, html{
     margin: 5px 0; 
 }
 
+
 /* Manage Property styling */
 .boarding-house {
     text-align: left;
 }
 .boarding-house h2 {
     margin-left: 50px;
+}
+
+
+/* Bookmark styling */
+.bookmark-list {
+    margin-left: 30px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+.bookmark {
+    width: 85%; 
+    height: auto;
+    padding: 10px;
+    border-radius: 7px; 
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
+}
+.bookmark a {
+    display: flex;
+    flex-direction: row;
+    text-decoration: none;
+    color: black;
+    gap: 15px;
+    width: 100%;
+}
+.bookmark img {
+    width: 240px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+.bookmark .bookmark-info {
+        width: 90%;
+}
+.bookmark-actions {
+    display: flex;
+    align-items: center;
+    padding-right: 10px;
+    color: black;
+    position: relative;
+    right: 0%;
+}
+.bookmark-actions button {
+    height: 30px;
+    width: 30px;
+    margin-left: 10px;
+    text-decoration: none;
+    border-radius: 10px;
+    background-color: white;
+    border: solid 0.5px #555;
+    font-size: medium;
+}
+.bookmark-actions button:hover {
+    background-color: lightgray;
 }

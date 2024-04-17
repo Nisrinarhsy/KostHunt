@@ -7,11 +7,11 @@
     <link rel="stylesheet" type="text/css" href="../styling/style.css">    
 </head>
 <body>
-    <?php include 'navbar.php'; ?>
+    <?php include '../general/navbar.php'; ?>
     <div class="content">
         <div class="homecontent">
-            <h2>Welcome!</h2>
-            <p>Start looking for your destined university housing!</p>
+            <h2>Welcome to your gateway to exceptional university living</h2>
+            <p>Discover your ideal home-away-from-home where community and comfort converge.</p>
             <a href="houselist.php" class="btn">Browse Available Housing</a>
         </div>
     </div>

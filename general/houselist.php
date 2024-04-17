@@ -4,12 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Houselist</title>
+    <script src="https://kit.fontawesome.com/cb7394df23.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="../styling/style.css">    
 </head>
 <body>  
     <?php include 'navbar.php'; ?>
     <div class="content">
-    <input type="text" placeholder="Search..." class="searchbar">
+    <input type="text" placeholder="Search by name" class="searchbar">
     <div class="boarding-house">
         <div class="item-list">
             <div class="item">
@@ -22,7 +23,7 @@
                 </a>
                 <div class="item-actions">
                     <button onclick="window.location.href='editroom.php'" title="Edit" class="edit-icon">
-                        <i class="fa-solid fa-pen-to-square"></i>
+                        <i class="fa-regular fa-bookmark"></i>
                     </button>
                 </div>
             </div>
