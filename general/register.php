@@ -27,8 +27,6 @@
                 <option value="male">Male</option>
                 <option value="female">Female</option>
             </select>
-            <input type="date" name="date_of_birth" placeholder="Date of Birth" required>
-            <input type="text" name="bio" placeholder="Bio">
             <input type="submit" name="register" value="Register">
             <p id="error-message" class="error-message"></p>
         </form>
