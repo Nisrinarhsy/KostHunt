@@ -1,45 +1,3 @@
-<?php
-session_start();
-
-//db configurations and connection
-$host = 'localhost';
-$username = 'root';
-$pass = '';
-$database = 'suhouse';
-$conn = mysqli_connect($host, $username, $pass, $database);
-
-// Function to authenticate user and determine role
-function authenticateUser($username, $password) {
-    global $conn;
-    $query = "SELECT * FROM user WHERE user_id='$username' AND password='$password'";
-    $result = $conn->query($query);
-    if ($result->num_rows > 0) {
-        $row = $result->fetch_assoc();
-        $_SESSION['username'] = $username;
-        $_SESSION['role'] = $row['role'];
-        return true;
-    } else {
-        return false;
-    }
-}
-
-// Function to check if user is logged in
-function isLoggedIn() {
-    return isset($_SESSION['username']);
-}
-
-if (isset($_POST['login'])) {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
-    if (authenticateUser($username, $password)) {
-        header('Location: home.php'); // Redirect to main page after successful login
-        exit();
-    } else {
-        $loginError = "Invalid username or password";
-    }
-}
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,32 +9,53 @@ if (isset($_POST['login'])) {
 <body>
     <div class="registerbox">
         <h2>Register</h2>
-        <!-- registration form -->
-        <form action="register.php" method="POST">
+        <!-- Updated registration form -->
+        <form id="registrationForm"> 
             <input type="text" name="username" placeholder="Username" required>
-            <input type="text" name="full_name" placeholder="Full Name" required>
+            <input type="text" name="name" placeholder="Full Name" required> 
             <input type="email" name="email" placeholder="Email" required>
             <input type="password" name="password" placeholder="Password" required>
-            <input type="tel" name="phone_number" placeholder="Phone Number" required>
+            <input type="tel" name="contact_number" placeholder="Phone Number" required> 
             <select name="user_type" id="user-type" required>
                 <option value="">Select User Type</option>
                 <option value="regular">Regular</option>
                 <option value="home_owner">Home Owner</option>
             </select>
-            <input type="text" name="address" placeholder="Address (Home Owners Only)" id="address" style="display: none;">
+            <input type="text" name="address" placeholder="Address (Home Owners Only)" id="address">
             <select name="gender" required>
                 <option value="">Select Gender</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
-                <option value="other">Other</option>
             </select>
             <input type="date" name="date_of_birth" placeholder="Date of Birth" required>
+            <input type="text" name="bio" placeholder="Bio">
             <input type="submit" name="register" value="Register">
+            <p id="error-message" class="error-message"></p>
         </form>
-        <!-- Error message -->
-        <?php if (isset($registerError)) echo '<p class="error-message">' . $registerError . '</p>'; ?>
     </div>
     <script>
+    document.getElementById('registrationForm').addEventListener('submit', function(e) {
+        e.preventDefault(); // Prevent the default form submission
+
+        var formData = new FormData(this);
+
+        fetch('../../api/user/register.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json()) // Expecting a JSON response
+        .then(data => {
+            if (data.error) {
+                // Display the specific error message
+                document.getElementById('error-message').innerText = data.error;
+            } else {
+                // Handle successful registration, maybe redirect or show a success message
+                window.location.href = '../../SUHouse/general/login.php';
+            }
+        })
+        .catch(error => console.error('Error:', error));
+    });
+
     const userTypeSelect = document.getElementById('user-type');
     const addressInput = document.getElementById('address');
     function toggleAddressInput() {
