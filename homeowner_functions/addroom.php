@@ -26,14 +26,14 @@
                 </div>
                 <div class="form-group">
                     <label for="price">Price</label>
-                    <input type="text" id="price" name="price" placeholder="Enter price" required>
+                    <input type="number" id="price" name="price" placeholder="Enter price" required>
                 </div>
                 <div class="form-group">
                     <label for="quantity">Quantity</label>
-                    <input type="text" id="quantity" name="quantity" placeholder="Enter quantity" required>
+                    <input type="number" id="quantity" name="quantity" placeholder="Enter quantity" required>
                 </div>
                 <div class="form-group" id="room-pictures-container">
-                    <label for="room-pictures">House Picture</label>
+                    <label for="room-pictures">Room Picture</label>
                     <div class="room-pictures-container">
                         <div class="picturebox">
                             <input type="file" name="room_pictures[]" multiple>

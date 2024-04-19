@@ -105,17 +105,19 @@ body, html{
     background-color: #0056b3;
 }
 .form-group {
+    width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 15px;
 }
 .form-group label {
+    width: 20%;
     flex: 1;
     margin-right: 10px;
     text-align: start;
 }
-input[type="text"] {    
+input[type="text"], input[type="number"] {    
     width: 80%;
     padding: 10px;
     margin: 8px 0;
@@ -146,7 +148,8 @@ button, input[type="file"] {
     bottom: 20px;
     right: 20px;
 }
-.form-button input[type="submit"] {
+.form-button input[type="submit"],
+.form-button button {
     padding: 14px 20px;
     background-color: #24147a;
     color: white;
@@ -160,7 +163,7 @@ button, input[type="file"] {
 
 
 /* Add Room styling */
-.add-room-box, .add-house-box, .profilebox {
+.add-room-box, .add-house-box, .profilebox, .edit-room-box {
     width: 70%;
     margin: 20px auto;
     padding: 40px;
@@ -256,6 +259,6 @@ button, input[type="file"] {
     border-radius: 5px;
     cursor: pointer;
 }
-.save-button {
+.save-button, #save-button {
     display: none;
 }
