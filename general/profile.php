@@ -1,3 +1,18 @@
+<?php
+// Include the database helper file
+require_once './connection.php';
+
+// Fetch user data from the database
+$userData = getUserData(1); // Assuming user ID is 1
+
+// Function to fetch user data from the database
+function getUserData($userId) {
+    // Call a function from your helper file to fetch user data
+    // Replace 'getUserDataFromDatabase' with your actual function name
+    return getUserDataFromDatabase($userId);
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,8 +22,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Settings</title>
     <script src="https://kit.fontawesome.com/cb7394df23.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" type="text/css" href="../styling/form_page_style.css">
-</head>
+    <link rel="stylesheet" type="text/css" href="../styling/form_page_style.css"></head>
 
 <body>
     <?php include 'navbar.php'; ?>
@@ -16,28 +30,29 @@
         <div class="profilebox" id="profile-box">
             <!-- Profile picture and edit icon -->
             <div class="profile-picture">
+                <!-- Profile picture display -->
                 <img src="https://via.placeholder.com/100" alt="Profile Picture">
                 <span class="edit-icon" id="edit-icon"><i class="fa-solid fa-pen"></i></span>
                 <input type="file" id="profile-picture-input" style="display: none;">
             </div>
-            <div class="profile-name">Name</div>
+            <!-- Display user information -->
+            <div class="profile-name"><?php echo $userData['name']; ?></div>
             <div class="user-info">
                 <div>
                     <label for="email">Email</label>
-                    <input type="email" id="email" value="johndoe@example.com" readonly>
+                    <input type="email" id="email" value="<?php echo $userData['email']; ?>" readonly>
                 </div>
                 <div>
                     <label for="contact-number">Contact Number</label>
-                    <input type="tel" id="contact-number" value="123-456-7890" readonly>
+                    <input type="tel" id="contact-number" value="<?php echo $userData['contact_number']; ?>" readonly>
                 </div>
                 <div>
                     <label for="bio">Bio</label>
-                    <textarea id="bio" readonly>ndkanf
-                    </textarea>
+                    <textarea id="bio" readonly><?php echo $userData['bio']; ?></textarea>
                 </div>
                 <div>
                     <label for="gender">Gender</label>
-                    <input type="text" id="gender" value="Male" readonly>
+                    <input type="text" id="gender" value="<?php echo $userData['gender']; ?>" readonly>
                 </div>
             </div>
             <!-- Buttons section -->
@@ -111,6 +126,31 @@
             autoResizeTextarea(this);
         });
         autoResizeTextarea(bioTextarea);
+
+        // Fetch API to update user data
+        fetch('../api/user/update_user.php', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                user_id: 1, // Provide the user ID you want to update
+                name: 'Budi Doremi',
+                contact_number: '987-654-3210',
+                user_type: 'updated type',
+                address: 'Updated Address',
+                date_of_birth: '1990-01-01',
+                gender: 'Female',
+                bio: 'Updated Bio'
+            })
+        })
+        .then(response => response.text())
+        .then(data => {
+            console.log(data); // Output the response from update_user.php
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     </script>
 </body>
 

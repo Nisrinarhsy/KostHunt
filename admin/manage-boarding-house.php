@@ -519,26 +519,57 @@ px;
                     <input type="text" id="edit-boarding-house-address" name="address" required><br><br>
                     <button type="submit">Save Changes</button>
                 </form>
+                <form id="delete-boarding-house-form" action="delete_boarding_house.php" method="POST">
+                    <input type="hidden" id="delete-boarding-house-id" name="boarding_house_id" value="">
+                    <button type="submit">Delete Boarding House</button>
+                </form>
             </div>
         </div>
     <?php } ?>
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            document.getElementById('add-boarding-house-btn').addEventListener('click', function () {
-                document.getElementById('add-boarding-house-modal').style.display = 'block';
-            });
-
-            document.getElementsByClassName('close')[0].addEventListener('click', function () {
-                document.getElementById('add-boarding-house-modal').style.display = 'none';
-            });
-
-            window.onclick = function (event) {
-                var addModal = document.getElementById('add-boarding-house-modal');
-                if (event.target == addModal) {
-                    addModal.style.display = "none";
-                }
+            // Function to handle edit modal
+            function openEditModal(id, name, address) {
+                document.getElementById('edit-boarding-house-id').value = id;
+                document.getElementById('edit-boarding-house-name').value = name;
+                document.getElementById('edit-boarding-house-address').value = address;
+                document.getElementById('edit-boarding-house-modal').style.display = 'block';
             }
+
+            // Function to handle delete modal
+            function openDeleteModal(id) {
+                document.getElementById('delete-boarding-house-id').value = id;
+                document.getElementById('edit-boarding-house-modal').style.display = 'block';
+            }
+
+            // Event listeners for edit and delete buttons
+            var editButtons = document.querySelectorAll('.edit-boarding-house');
+            var deleteButtons = document.querySelectorAll('.delete-boarding-house');
+
+            editButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var id = button.dataset.id;
+                    var name = button.dataset.name;
+                    var address = button.dataset.address;
+                    openEditModal(id, name, address);
+                });
+            });
+
+            deleteButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var id = button.dataset.id;
+                    openDeleteModal(id);
+                });
+            });
+
+            // Close modal when close button is clicked
+            var closeButtons = document.querySelectorAll('.close');
+            closeButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    document.getElementById('edit-boarding-house-modal').style.display = 'none';
+                });
+            });
         });
     </script>
 </body>
