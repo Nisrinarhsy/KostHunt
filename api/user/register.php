@@ -1,23 +1,38 @@
 <?php
 include '../helper.php';
 
-$username = $_POST['username'];
-$password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-$email = $_POST['email'];
-$name = $_POST['name'];
-$contact_number = $_POST['contact_number'];
-$user_type = $_POST['user_type'];
-$address = $_POST['address'];
-$date_of_birth = $_POST['date_of_birth'];
-$gender = $_POST['gender'];
-$bio = $_POST['bio'];
+header('Content-Type: application/json'); // Set the content type of the response to JSON
 
-$sql = "INSERT INTO users (username, password, email, name, contact_number, user_type, address, date_of_birth, gender, bio, registration_date, status) VALUES ('$username', '$password', '$email', '$name', '$contact_number', '$user_type', '$address', '$date_of_birth', '$gender', '$bio', NOW(), 'active')";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $data = json_decode(file_get_contents("php://input"), true);
 
-if ($conn->query($sql) === TRUE) {
-    echo "User registered successfully";
+    $username = $data['username'];
+    $email = $data['email'];
+
+    // Check if username or email already exists
+    $checkQuery = "SELECT * FROM users WHERE username='$username' OR email='$email'";
+    $result = mysqli_query($conn, $checkQuery);
+    if (mysqli_num_rows($result) > 0) {
+        echo json_encode(["message" => "Username or email already exists", "status" => "error"]);
+    } else {
+        // Proceed with registration
+        // Retrieve other registration data from $data array
+        $name = $data['name'];
+        $password = $data['password'];
+        $contact_number = $data['contact_number'];
+        $user_type = $data['user_type'];
+        $address = $data['address'];
+        $gender = $data['gender'];
+        // Insert new user into the database
+        $insertQuery = "INSERT INTO users (username, email, name, password, contact_number, user_type, address, gender) VALUES ('$username', '$email', '$name', '$password', '$contact_number', '$user_type', '$address', '$gender')";
+        if (mysqli_query($conn, $insertQuery)) {
+            echo json_encode(["message" => "User registered successfully", "status" => "success"]);
+        } else {
+            echo json_encode(["message" => "Error registering user", "status" => "error"]);
+        }
+    }
 } else {
-    echo "Error: " . $sql . "<br>" . $conn->error;
+    echo json_encode(["message" => "Invalid request method", "status" => "error"]);
 }
 
 $conn->close();

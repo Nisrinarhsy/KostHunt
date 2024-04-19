@@ -29,6 +29,7 @@
             </select>
             <input type="submit" name="register" value="Register">
             <p id="error-message" class="error-message"></p>
+            <p id="success-message" class="success-message"></p> <!-- Added success message -->
         </form>
     </div>
     <script>
@@ -42,15 +43,23 @@
             body: formData
         })
         .then(response => response.json()) // Expecting a JSON response
-        .then(data => {
-            if (data.error) {
-                // Display the specific error message
-                document.getElementById('error-message').innerText = data.error;
-            } else {
-                // Handle successful registration, maybe redirect or show a success message
-                window.location.href = '../../SUHouse/general/login.php';
-            }
-        })
+            .then(data => {
+        if (data.status === "error") {
+            // Display the specific error message as a pop-up
+            alert(data.message);
+            document.getElementById('error-message').innerText = data.message;
+            document.getElementById('success-message').innerText = ''; // Clear success message
+        } else if (data.status === "success") {
+            // Display success message as a pop-up
+            alert(data.message);
+            document.getElementById('success-message').innerText = data.message;
+            document.getElementById('error-message').innerText = ''; // Clear error message
+            // Redirect to login page after showing success message
+            window.location.href = '../../KostHunt/general/login.php';
+        }
+    })
+
+
         .catch(error => console.error('Error:', error));
     });
 
