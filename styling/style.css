@@ -224,32 +224,30 @@ body, html{
 }
 
 
-/* Bookmark styling */
-.bookmark-list {
+/* Bookmark, application, and ongoing application styling */
+.bookmark-list, .application-list {
     margin-left: 30px;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     gap: 10px;
 }
-.bookmark { 
+.bookmark, .application { 
     width: 85%; 
     height: auto;
     padding: 10px;
     border-radius: 7px; 
-    display: flex;
-    flex-direction: column;
     text-align: left;
     border: none;
     border-radius: 10px;
     box-shadow: 1px 2px 5px rgba(0, 0, 0, 0.1);
 }
-.bookmark a {
+.bookmark a, .application {
     display: flex;
     flex-direction: row;
     text-decoration: none;
     color: black;
     gap: 15px;
-    width: 100%;
 }
 .bookmark img {
     width: 240px;
@@ -257,17 +255,31 @@ body, html{
     object-fit: cover;
     border-radius: 5px;
 }
-.bookmark .bookmark-info {
+.bookmark .bookmark-info, .application .application-detail {
         width: 90%;
 }
-.bookmark-actions {
+.application-detail {
+    padding-left: 15px;
     display: flex;
+    flex-direction: row;
+}
+.applicant-info, .applied-room, 
+.user-applied-room, .homeowner-info{
+    width: 50%;
+}
+.user-applied-room,
+.bookmark-actions, .application-actions {
+    width: min-content;
+    display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
+    gap: 5px;
     padding-right: 10px;
     color: black;
     position: relative;
     right: 0%;
-}
+    }
 .bookmark-actions button {
     height: 30px;
     width: 30px;
@@ -275,9 +287,26 @@ body, html{
     text-decoration: none;
     border-radius: 10px;
     background-color: white;
-    border: solid 0.5px #555;
+    border: none;
     font-size: medium;
+}
+.application-actions button {
+    height: fit-content;
+    width: fit-content;
+    padding: 0;
+    background-color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: large;
 }
 .bookmark-actions button:hover {
     background-color: lightgray;
+}
+.user-application-detail {
+    width: 80%;
+}
+.application-status {
+    width: 20%;
+    text-align: center;
+    align-self: center;
 }

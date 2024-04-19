@@ -25,6 +25,9 @@
                         <button onclick="window.location.href='#'" title="Delete" class="delete-icon">
                             <i class="fa-regular fa-trash-can"></i>
                         </button>
+                        <button onclick="window.location.href='#'" title="apply" class="apply-icon">
+                            <i class="fa-solid fa-house-circle-check"></i>
+                        </button>
                     </div>
                 </a>
             </div>
