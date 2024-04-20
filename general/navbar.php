@@ -7,7 +7,7 @@ if (session_status() == PHP_SESSION_NONE) {
 <div class="header">
     <div class="logo">
         <a href="../general/home.php">
-            <img src="../styling/su_logo_nobg.png" alt="SU_logo">
+            <img src="../styling/logo_nobg.png" alt="logo">
         </a>    
     </div>
     <div class="navbar">

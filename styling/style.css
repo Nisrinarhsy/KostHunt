@@ -21,10 +21,12 @@ body, html{
 }
 .header .logo {
     width: 15%;
+    background-color: white;
 }
 .header img {
     padding-left: 40px;
     height: 40px;
+    margin-top: 5px
 }
 .navbar {
     background-color: #24147a;
@@ -110,10 +112,11 @@ body, html{
 /* houselist style */
 .searchbar {
     margin-bottom: 15px;
-    width: 15%;
+    width: 40%;
     margin-left: 40px;
-    padding: 4px;
+    padding: 10px;
     border-radius: 5px;
+    box-sizing: border-box;
     border: solid 0.5px #555;
 }
 .item-list {
@@ -125,7 +128,7 @@ body, html{
 .item {
     width: 245px;
     height: auto;
-    padding: 10px;
+    padding: 15px;
     border-radius: 7px; 
     display: flex;
     flex-direction: column;
@@ -139,14 +142,17 @@ body, html{
     text-decoration: none;
     color: black;
 }
+.item .img-container {
+    width: 230px;
+    height: 153px;
+}
 .item img {
-    width: 240px;
-    height: 160px;
+    width: 100%;
     object-fit: cover;
     border-radius: 5px;
 }
 .item-actions {
-    margin-top: 5px;
+    margin-top: 7px;
     text-align: right;
     padding-right: 10px;
     color: black;
@@ -167,9 +173,16 @@ body, html{
 }
 .short-info {
     padding: 10px;
+    margin-top: 5px;
 }
-.short-info h3, .short-info p {
+.short-info p {
+    margin: 5px 0 0;
+    font-size: 16px;
+    color: #666;
+}
+.short-info h3 {
     margin: 0;
+    font-size: 18px;
 }
 
 
@@ -267,7 +280,6 @@ body, html{
 .user-applied-room, .homeowner-info{
     width: 50%;
 }
-.user-applied-room,
 .bookmark-actions, .application-actions {
     width: min-content;
     display: flex;
@@ -304,6 +316,7 @@ body, html{
 }
 .user-application-detail {
     width: 80%;
+    background-color: #0056b3;
 }
 .application-status {
     width: 20%;
