@@ -1,7 +1,5 @@
 <?php
-if (session_status() == PHP_SESSION_NONE) {
-    session_start(); // Start the session if not already started
-}
+session_start();
 ?>
 
 <div class="header">
@@ -23,11 +21,10 @@ if (session_status() == PHP_SESSION_NONE) {
                 <!-- Only show this link for home owner users -->
                 <a href="../homeowner_functions/manageproperty.php">Manage Property</a>
             <?php endif; ?>
-        <?php else: ?>
-            <!-- User is not logged in -->
-            <a href="../general/login.php">Login</a>
-            <a href="../general/houselist.php">Find Housing</a>
-            <a href="../general/home.php">Home</a>
         <?php endif; ?>
+        <!-- User is not logged in -->
+        <a href="../general/login.php">Login</a>
+        <a href="../general/houselist.php">Find Housing</a>
+        <a href="../general/home.php">Home</a>
     </div>
 </div>
