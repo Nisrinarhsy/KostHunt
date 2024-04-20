@@ -77,6 +77,8 @@ body, html{
 .contact-info a:hover {
     text-decoration: underline;
 }
+
+
 .content {
     display: flex;
     height: 100%;
@@ -119,7 +121,7 @@ body, html{
     box-sizing: border-box;
     border: solid 0.5px #555;
 }
-.item-list {
+#boarding-house-list {
     margin-left: 30px;
     display: flex;
     flex-wrap: wrap;
@@ -164,7 +166,6 @@ body, html{
     text-decoration: none;
     border-radius: 10px;
     background-color: white;
-    /* border: solid 0.5px #555; */
     border: none;
     font-size: medium;
 }
@@ -193,16 +194,16 @@ body, html{
     margin: 30px;
     margin-left: 50px;
 }
-.pict {
+.room-pict {
     margin-right: 20px;
 }
-.pict img {
+.room-pict img {
     width: 350px;
     height: 250px;
     object-fit: cover;
     border-radius: 5px;
 }
-.desc {
+.description {
     flex: 1; 
     overflow: hidden;
     margin-left: 30px;
