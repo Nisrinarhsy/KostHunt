@@ -15,6 +15,8 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
             $row = $result->fetch_assoc();
             if ($row['status'] == 'active' && password_verify($password, $row['password'])) {
                 echo json_encode(["message" => "Login successful", "status" => "success"]);
+                $_SESSION['username'] = $username;
+                $_SESSION['role'] = $row['user_type'];
             } else {
                 echo json_encode(["message" => "Incorrect username or password or inactive account", "status" => "error"]);
             }
