@@ -356,8 +356,23 @@ $is_selected_0 = "class='active' style='background-color: #3f3f3f'";
         background-color: #c82333;
     }
 
+    .edit-user {
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        padding: 5px 10px;
+        margin:10px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .edit-user:hover {
+        background-color: #0056b3;
+    }
+
     </style>
-    <script>
+  <script>
         // JavaScript code to toggle the account dropdown
         document.addEventListener('DOMContentLoaded', function () {
             var accountIcon = document.querySelector('.account-icon');
@@ -365,6 +380,58 @@ $is_selected_0 = "class='active' style='background-color: #3f3f3f'";
 
             accountIcon.addEventListener('click', function () {
                 accountDropdown.classList.toggle('active');
+            });
+
+            // Event listeners for edit and delete buttons
+            var editButtons = document.querySelectorAll('.edit-user');
+            var deleteButtons = document.querySelectorAll('.delete-user');
+
+            editButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var userId = button.dataset.id;
+                    var newRole = prompt("Enter new user type:");
+                    if (newRole !== null && newRole.trim() !== "") {
+                        // Send an AJAX request to update the user type
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "update_user.php", true);
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                if (xhr.responseText === "success") {
+                                    alert("User type updated successfully!");
+                                    // Optionally, update the user type in the UI without reloading the page
+                                } else {
+                                    alert("Failed to update user type!");
+                                }
+                            }
+                        };
+                        xhr.send("user_id=" + userId + "&new_role=" + encodeURIComponent(newRole));
+                    }
+                });
+            });
+
+            deleteButtons.forEach(function (button) {
+                button.addEventListener('click', function () {
+                    var userId = button.dataset.id;
+                    var confirmation = confirm("Are you sure you want to delete this user?");
+                    if (confirmation) {
+                        // Send an AJAX request to delete the user
+                        var xhr = new XMLHttpRequest();
+                        xhr.open("POST", "delete_user.php", true);
+                        xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                        xhr.onreadystatechange = function () {
+                            if (xhr.readyState == 4 && xhr.status == 200) {
+                                if (xhr.responseText === "success") {
+                                    alert("User deleted successfully!");
+                                    // Optionally, remove the user from the UI without reloading the page
+                                } else {
+                                    alert("Failed to delete user!");
+                                }
+                            }
+                        };
+                        xhr.send("user_id=" + userId);
+                    }
+                });
             });
         });
     </script>
@@ -417,6 +484,7 @@ $is_selected_0 = "class='active' style='background-color: #3f3f3f'";
                             echo '<div class="user">';
                             echo '<span class="user-name">' . $row['username'] . '</span>';
                             echo '<span class="user-role">' . $row['user_type'] . '</span>';
+                            echo '<button class="edit-user" data-id="' . $row['user_id'] . '"><i class="fas fa-edit"></i> Edit</button>';
                             echo '<button class="delete-user" data-id="' . $row['user_id'] . '"><i class="fas fa-trash-alt"></i> Delete</button>';
                             echo '</div>';
                         }

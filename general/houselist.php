@@ -109,7 +109,9 @@
                         // Add onclick event to redirect to indvroom.php with the boarding house ID
                         item.innerHTML = `
                             <a href="indvroom.php?house_id=${boardingHouse.boarding_house_id}">
-                                <img src="${boardingHouse.image}" alt="BoardingHouse">
+                            <div class="img-container">
+                                <img src="${boardingHouse.image_url}" alt="BoardingHouse">
+                            </div>
                                 <div class="short-info">
                                     <h3>${boardingHouse.name}</h3>
                                     <p>${boardingHouse.price}/bulan</p>
@@ -117,6 +119,7 @@
                             </a>
                         `;
                         boardingHouseList.appendChild(item);
+                
                     });
                 }
             })

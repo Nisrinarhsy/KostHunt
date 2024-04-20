@@ -492,7 +492,7 @@ px;
                                 echo '<span class="boarding-house-name">' . $row['name'] . '</span>';
                                 echo '<span class="boarding-house-address">' . $row['address'] . '</span>';
                                 echo '<div class="button-group">';
-                                echo '<button class="edit-boarding-house" data-id="' . $row['boarding_house_id'] . '"><i class="fas fa-edit"></i> Edit</button>';
+                                echo '<button class="edit-boarding-house" data-id="' . $row['boarding_house_id'] . '" data-name="' . $row['name'] . '" data-address="' . $row['address'] . '"><i class="fas fa-edit"></i> Edit</button>';
                                 echo '<button class="delete-boarding-house" data-id="' . $row['boarding_house_id'] . '"><i class="fas fa-trash-alt"></i> Delete</button>';
                                 echo '</div>';
                                 echo '</div>';
@@ -511,66 +511,112 @@ px;
             <div class="modal-content">
                 <span class="close">&times;</span>
                 <h2>Edit Boarding House Details</h2>
-                <form id="edit-boarding-house-form" action="edit_boarding_house.php" method="POST">
-                    <input type="hidden" id="edit-boarding-house-id" name="boarding_house_id" value="">
-                    <label for="edit-boarding-house-name">Name:</label><br>
-                    <input type="text" id="edit-boarding-house-name" name="name" required><br>
-                    <label for="edit-boarding-house-address">Address:</label><br>
-                    <input type="text" id="edit-boarding-house-address" name="address" required><br><br>
-                    <button type="submit">Save Changes</button>
-                </form>
-                <form id="delete-boarding-house-form" action="delete_boarding_house.php" method="POST">
-                    <input type="hidden" id="delete-boarding-house-id" name="boarding_house_id" value="">
-                    <button type="submit">Delete Boarding House</button>
-                </form>
+                <form id="edit-boarding-house-form" action="edit_boarding_house.php" method="POST" enctype="multipart/form-data">
+                <input type="hidden" id="edit-boarding-house-id" name="boarding_house_id" value="">
+                <label for="edit-boarding-house-name">Name:</label><br>
+                <input type="text" id="edit-boarding-house-name" name="name" required><br>
+                <label for="edit-boarding-house-address">Address:</label><br>
+                <input type="text" id="edit-boarding-house-address" name="address" required><br><br>
+                <label for="image">Upload Image:</label><br>
+                <input type="file" name="image" id="image"><br><br>
+                <button type="submit">Save Changes</button>
+            </form>
+            <form id="delete-boarding-house-form" action="delete_boarding_house.php" method="POST">
+                <input type="hidden" id="delete-boarding-house-id" name="boarding_house_id" value="">
+                <button type="submit">Delete Boarding House</button>
+            </form>
+
             </div>
         </div>
+
+ <!-- Modal for adding new boarding house -->
+<div id="add-boarding-house-modal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <h2>Add New Boarding House</h2>
+        <!-- Form to add a new boarding house -->
+        <form id="add-boarding-house-form" action="add_boarding_house.php" method="POST" enctype="multipart/form-data">
+            <!-- Add necessary form fields for adding a new boarding house -->
+            <!-- For example: name, address, image upload, etc. -->
+            <label for="add-boarding-house-name">Name:</label><br>
+            <input type="text" id="add-boarding-house-name" name="name" required><br>
+            <label for="add-boarding-house-address">Address:</label><br>
+            <input type="text" id="add-boarding-house-address" name="address" required><br><br>
+            <label for="image">Upload Image:</label><br>
+            <input type="file" name="image" id="image"><br><br>
+            <button type="submit">Add Boarding House</button>
+        </form>
+    </div>
+</div>
+
     <?php } ?>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            // Function to handle edit modal
-            function openEditModal(id, name, address) {
-                document.getElementById('edit-boarding-house-id').value = id;
-                document.getElementById('edit-boarding-house-name').value = name;
-                document.getElementById('edit-boarding-house-address').value = address;
-                document.getElementById('edit-boarding-house-modal').style.display = 'block';
+    // JavaScript code to toggle the modal for adding new boarding house
+    document.addEventListener('DOMContentLoaded', function () {
+        var addModal = document.getElementById('add-boarding-house-modal');
+        var addBtn = document.getElementById("add-boarding-house-btn");
+        var span = document.getElementsByClassName("close")[0];
+
+        addBtn.onclick = function () {
+            addModal.style.display = "block";
+        }
+
+        span.onclick = function () {
+            addModal.style.display = "none";
+        }
+
+        window.onclick = function (event) {
+            if (event.target == addModal) {
+                addModal.style.display = "none";
             }
+        }
+    });
 
-            // Function to handle delete modal
-            function openDeleteModal(id) {
-                document.getElementById('delete-boarding-house-id').value = id;
-                document.getElementById('edit-boarding-house-modal').style.display = 'block';
-            }
+    document.addEventListener('DOMContentLoaded', function () {
+    // Function to handle edit modal
+    function openEditModal(id, name, address) {
+        document.getElementById('edit-boarding-house-id').value = id;
+        document.getElementById('edit-boarding-house-name').value = name;
+        document.getElementById('edit-boarding-house-address').value = address;
+        document.getElementById('edit-boarding-house-modal').style.display = 'block';
+    }
 
-            // Event listeners for edit and delete buttons
-            var editButtons = document.querySelectorAll('.edit-boarding-house');
-            var deleteButtons = document.querySelectorAll('.delete-boarding-house');
+    // Function to handle delete modal
+    function openDeleteModal(id) {
+        document.getElementById('delete-boarding-house-id').value = id;
+        document.getElementById('edit-boarding-house-modal').style.display = 'block';
+    }
 
-            editButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    var id = button.dataset.id;
-                    var name = button.dataset.name;
-                    var address = button.dataset.address;
-                    openEditModal(id, name, address);
-                });
-            });
+    // Event listeners for edit and delete buttons
+    var editButtons = document.querySelectorAll('.edit-boarding-house');
+    var deleteButtons = document.querySelectorAll('.delete-boarding-house');
 
-            deleteButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    var id = button.dataset.id;
-                    openDeleteModal(id);
-                });
-            });
-
-            // Close modal when close button is clicked
-            var closeButtons = document.querySelectorAll('.close');
-            closeButtons.forEach(function (button) {
-                button.addEventListener('click', function () {
-                    document.getElementById('edit-boarding-house-modal').style.display = 'none';
-                });
-            });
+    editButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var id = button.dataset.id;
+            var name = button.dataset.name;
+            var address = button.dataset.address;
+            openEditModal(id, name, address);
         });
+    });
+
+    deleteButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            var id = button.dataset.id;
+            openDeleteModal(id);
+        });
+    });
+
+    // Close modal when close button is clicked
+    var closeButtons = document.querySelectorAll('.close');
+    closeButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            document.getElementById('edit-boarding-house-modal').style.display = 'none';
+        });
+    });
+});
+
     </script>
 </body>
 

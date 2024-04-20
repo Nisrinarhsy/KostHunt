@@ -362,17 +362,86 @@ $is_selected_0 = "class='active' style='background-color: #3f3f3f'";
                     </div>
                 </div>
 
-                <!-- Content related to managing boarding houses -->
-                <div class="summary-card">
-                    <h2>Manage Boarding Houses</h2>
-                    <!-- Add your form or information related to managing boarding houses here -->
-                </div>
+            <!-- Content related to managing boarding houses -->
+            <div class="summary-card">
+                <h2>Manage Boarding Houses</h2>
+                <?php
+                // Include the connection file to establish a database connection
+                require_once "connection.php";
 
-                <!-- Content related to managing users -->
-                <div class="summary-card">
-                    <h2>Manage Users</h2>
-                    <!-- Add your form or information related to managing users here -->
-                </div>
+                // Check if the connection is successful
+                if ($mysqli) {
+                    // Query to get the total number of boarding houses
+                    $query = "SELECT COUNT(*) AS total_boarding_houses FROM boarding_house";
+                    $result = mysqli_query($mysqli, $query);
+
+                    // Check if the query was successful
+                    if ($result) {
+                        $row = mysqli_fetch_assoc($result);
+                        $total_boarding_houses = $row['total_boarding_houses'];
+                        echo "<p>Total Boarding Houses: $total_boarding_houses</p>";
+                    } else {
+                        echo "Failed to fetch total boarding houses.";
+                    }
+                } else {
+                    echo "Failed to connect to the database.";
+                }
+                ?>
+            </div>
+
+            <!-- Content related to managing users -->
+<div class="summary-card">
+    <h2>Manage Users</h2>
+    <?php
+    // Include the connection file to establish a database connection
+    require_once "connection.php";
+
+    // Check if the connection is successful
+    if ($mysqli) {
+        // Query to get the total number of users
+        $total_users_query = "SELECT COUNT(*) AS total_users FROM users";
+        $total_users_result = mysqli_query($mysqli, $total_users_query);
+
+        // Check if the query was successful
+        if ($total_users_result) {
+            $total_users_row = mysqli_fetch_assoc($total_users_result);
+            $total_users = $total_users_row['total_users'];
+            echo "<p>Total Users: $total_users</p>";
+        } else {
+            echo "Failed to fetch total users.";
+        }
+
+        // Query to get the total number of regular users
+        $total_regular_users_query = "SELECT COUNT(*) AS total_regular_users FROM users WHERE user_type = 'regular'";
+        $total_regular_users_result = mysqli_query($mysqli, $total_regular_users_query);
+
+        // Check if the query was successful
+        if ($total_regular_users_result) {
+            $total_regular_users_row = mysqli_fetch_assoc($total_regular_users_result);
+            $total_regular_users = $total_regular_users_row['total_regular_users'];
+            echo "<p>Total Regular Users: $total_regular_users</p>";
+        } else {
+            echo "Failed to fetch total regular users.";
+        }
+
+        // Query to get the total number of house owners
+        $total_house_owners_query = "SELECT COUNT(*) AS total_house_owners FROM users WHERE user_type = 'house_owner'";
+        $total_house_owners_result = mysqli_query($mysqli, $total_house_owners_query);
+
+        // Check if the query was successful
+        if ($total_house_owners_result) {
+            $total_house_owners_row = mysqli_fetch_assoc($total_house_owners_result);
+            $total_house_owners = $total_house_owners_row['total_house_owners'];
+            echo "<p>Total House Owners: $total_house_owners</p>";
+        } else {
+            echo "Failed to fetch total house owners.";
+        }
+    } else {
+        echo "Failed to connect to the database.";
+    }
+    ?>
+</div>
+
             </div>
         </div>
     <?php } ?>
