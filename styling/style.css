@@ -175,7 +175,7 @@ body, html{
 .short-info {
     padding: 10px;
     margin-top: 5px;
-}
+}i
 .short-info p {
     margin: 5px 0 0;
     font-size: 16px;
@@ -209,13 +209,13 @@ body, html{
     margin-left: 30px;
 }
 .deschead {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    margin-bottom: 5px;
 }
 .buttons {
-    width: min-content;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     gap: 5px;
 }
 .desc h2, .desc p {
