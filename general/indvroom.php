@@ -32,16 +32,16 @@
             </div>
             <div class="description">
                 <div class="deschead">
-                    <h2><?php echo $boarding_house['name']; ?></h2>
-                    <p>Price: <?php echo number_format($boarding_house['price'], 2); ?></p>
-                    <div class="buttons">
-                        <a href="https://api.whatsapp.com/send?phone=YOUR_PHONE_NUMBER_HERE&text=I%20want%20to%20book%20the%20boarding%20house%20<?php echo $boarding_house['name']; ?>" class="btn">Book Now on WhatsApp</a>
-                        <a href="#" class="btn">Apply Room</a>
-                        <a href="#" class="btn">Bookmark</a>
-                    </div>
+                        <h2><?php echo $boarding_house['name']; ?></h2>
+                        <p><?php echo number_format($boarding_house['price'], 2); ?></p>           
                 </div>
             <p><?php echo $boarding_house['address']; ?></p>
             <p><?php echo $boarding_house['description']; ?></p>
+            </div>
+            <div class="buttons">
+                <a href="https://api.whatsapp.com/send?phone=YOUR_PHONE_NUMBER_HERE&text=I%20want%20to%20book%20the%20boarding%20house%20<?php echo $boarding_house['name']; ?>" class="btn">Contact Owner</a>
+                <a href="#" class="btn">Apply Room</a>
+                <a href="#" class="btn">Bookmark</a>
             </div>
         </div>
         <?php
