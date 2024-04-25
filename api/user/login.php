@@ -1,4 +1,5 @@
 <?php
+session_start();
 include '../helper.php';
 
 header('Content-Type: application/json'); // Set the content type of the response to JSON
@@ -14,9 +15,9 @@ if(isset($_POST['username']) && isset($_POST['password'])) {
         if ($result->num_rows == 1) {
             $row = $result->fetch_assoc();
             if ($row['status'] == 'active' && password_verify($password, $row['password'])) {
-                echo json_encode(["message" => "Login successful", "status" => "success"]);
                 $_SESSION['username'] = $username;
                 $_SESSION['role'] = $row['user_type'];
+                echo json_encode(["message" => "Login successful", "status" => "success"]);
             } else {
                 echo json_encode(["message" => "Incorrect username or password or inactive account", "status" => "error"]);
             }

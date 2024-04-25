@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['boarding_house_id'])) 
 
             if ($result) {
                 header("Location: manage-boarding-house.php");
-                exit();g
+                exit();
             } else {
                 // Handle update failure
             }

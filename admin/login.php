@@ -17,8 +17,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $hashedPassword = $row['password'];
             $passwordMatch = password_verify($password, $hashedPassword);
 
-            if ($passwordMatch) {
+            if ($passwordMatch &&  $row['user_type'] == 'admin') {
                 $_SESSION['account_id'] = $row['user_id'];
+                $_SESSION['role'] = 'admin';
                 header("Location: dashboard.php");
                 exit();
             } else {

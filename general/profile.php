@@ -1,9 +1,20 @@
 <?php
+session_start();
+error_reporting(0);
 // Include the database helper file
 require_once './connection.php';
 
+// Check if the user is not logged in, redirect to login page
+if (!isset($_SESSION['role'])) {
+    header("Location: ../general/login.php");
+    exit();
+}
+
+// Get the logged-in user's ID
+$user_id = $_SESSION['user_id'];
+
 // Fetch user data from the database
-$userData = getUserData(1); // Assuming user ID is 1
+$userData = getUserData($user_id);
 
 // Function to fetch user data from the database
 function getUserData($userId) {
@@ -12,6 +23,7 @@ function getUserData($userId) {
     return getUserDataFromDatabase($userId);
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -104,7 +116,11 @@ function getUserData($userId) {
 
         // Event listeners
         editButton.addEventListener("click", toggleEditMode);
-        saveButton.addEventListener("click", toggleEditMode);
+        saveButton.addEventListener("click", function() {
+            // Call the function to update user data here
+            updateUserData();
+            toggleEditMode(); // Toggle back to view mode after saving
+        });
         logoutButton.addEventListener("click", function() {
             // Add your logout logic here
             console.log("Logging out...");
@@ -127,30 +143,30 @@ function getUserData($userId) {
         });
         autoResizeTextarea(bioTextarea);
 
-        // Fetch API to update user data
-        fetch('../api/user/update_user.php', {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                user_id: 1, // Provide the user ID you want to update
-                name: 'Budi Doremi',
-                contact_number: '987-654-3210',
-                user_type: 'updated type',
-                address: 'Updated Address',
-                date_of_birth: '1990-01-01',
-                gender: 'Female',
-                bio: 'Updated Bio'
+        // Function to update user data
+        function updateUserData() {
+            fetch('../api/user/update_user.php', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: <?php echo $userData['user_id']; ?>,
+                    name: document.getElementById('name').value,
+                    contact_number: document.getElementById('contact_number').value,
+                    gender: document.getElementById('gender').value,
+                    bio: document.getElementById('bio').value
+                    // Add other fields as needed
+                })
             })
-        })
-        .then(response => response.text())
-        .then(data => {
-            console.log(data); // Output the response from update_user.php
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
+            .then(response => response.text())
+            .then(data => {
+                console.log(data); // Output the response from update_user.php
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
     </script>
 </body>
 

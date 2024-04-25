@@ -4,7 +4,7 @@ session_start();
 include "connection.php";
 
 // Check if the user is logged in and is an admin
-if (!isset($_SESSION['account_id']) || $_SESSION['user_type'] !== 'admin') {
+if (!isset($_SESSION['account_id']) || $_SESSION['role'] !== 'admin') {
     http_response_code(403);
     echo "Access forbidden";
     exit();

@@ -11,6 +11,5 @@ if (!$conn) {
     die("Connection failed: " . mysqli_connect_error());
 }
 
-header('Content-Type: application/json');
-
+mysqli_select_db($conn,DB);
 ?>

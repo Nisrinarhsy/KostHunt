@@ -6,6 +6,15 @@
     <title>Houselist</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-VC1LKgx/z32CVwugL3VMSNEwdqff0TANnPYRVgOmz4JcifIpoY+IwcuYf+q7hY9xG2Hvr3yxEY+UvC0ntINOKQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" type="text/css" href="../styling/style.css">
+    <style>
+        .content {
+            margin-bottom: 100px; /* Adjust this value according to your footer height */
+            overflow-y: auto;
+            max-height: calc(100vh - 150px); /* Adjust 150px based on your header and footer height */
+        }
+
+        /* Add any additional styling as needed */
+    </style>
 </head>
 <body>
     <?php include 'navbar.php'; ?>

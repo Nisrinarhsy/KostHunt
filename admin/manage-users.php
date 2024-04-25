@@ -8,6 +8,12 @@ if (!isset($_SESSION['account_id'])) {
     header("Location: login.php");
     exit();
 }
+if ($_SESSION['role'] != 'admin') {
+    header("Location: login.php");
+    exit();
+}
+
+
 
 $is_selected_0 = "class='active' style='background-color: #3f3f3f'";
 
@@ -388,7 +394,7 @@ $is_selected_0 = "class='active' style='background-color: #3f3f3f'";
 
             editButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
-                    var userId = button.dataset.id;
+                    var userId = button.getAttribute('data-id');
                     var newRole = prompt("Enter new user type:");
                     if (newRole !== null && newRole.trim() !== "") {
                         // Send an AJAX request to update the user type
@@ -412,7 +418,7 @@ $is_selected_0 = "class='active' style='background-color: #3f3f3f'";
 
             deleteButtons.forEach(function (button) {
                 button.addEventListener('click', function () {
-                    var userId = button.dataset.id;
+                    var userId = button.getAttribute('data-id');
                     var confirmation = confirm("Are you sure you want to delete this user?");
                     if (confirmation) {
                         // Send an AJAX request to delete the user
@@ -423,6 +429,7 @@ $is_selected_0 = "class='active' style='background-color: #3f3f3f'";
                             if (xhr.readyState == 4 && xhr.status == 200) {
                                 if (xhr.responseText === "success") {
                                     alert("User deleted successfully!");
+                                    window.location.reload();
                                     // Optionally, remove the user from the UI without reloading the page
                                 } else {
                                     alert("Failed to delete user!");
